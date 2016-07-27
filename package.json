@@ -1,0 +1,16 @@
+{
+  "name": "show_me_the_lyrics!",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "author": "Luis Vallejo",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "electron-prebuilt": "1.2.8",
+    "electron-rebuild": "^1.1.5",
+    "dbus-native": "0.2.0"
+  }
+}
