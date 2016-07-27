@@ -1,14 +1,12 @@
 $(function () {
-	var App = function () {
+	var socket = io('http://localhost:8080');
 
-		this.init = function () {
-			ChartLyrics.findLyric('all that remains', 'what if i was nothing').done(function (lyric) {
-				console.log(lyric);
-			});
-		};
-	};
+	socket.on('song_changed', function (data) {
+		ChartLyrics.findLyric(data.artist, data.title).done(function (lyric) {
+			console.log(lyric);
+			$('#lyrics').html(lyric)
+		});
+	});
 
-	let app = new App();
-	app.init();
 });
 

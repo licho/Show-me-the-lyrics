@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Desktop lyrics</title>
+	<title>Show me the lyrics!</title>
 	<script>
 		window.nodeRequire = require;
 		delete window.require;
@@ -10,10 +10,17 @@
 		delete window.module;
 	</script>
 	<script src="assets/third-party/jquery-3.1.0.min.js"></script>
+	<script src="assets/third-party/socket.io-1.4.5.js"></script>
 	<script src="assets/js/chartlyrics.js"></script>
 	<script src="assets/js/index.js"></script>
+	<style>
+	#lyrics {
+		white-space: pre-line;
+		white-space: pre-wrap;
+	}
+	</style>
 </head>
 <body>
-	Test
+	<p id="lyrics"></p>
 </body>
 </html>

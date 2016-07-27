@@ -7,6 +7,8 @@ app.on('ready', () => {
 	win.webContents.openDevTools();	
 });
 
+var io = require('socket.io')(8080);
+
 var dbus = require('dbus-native');
 var sessionBus = dbus.sessionBus();
 
@@ -18,14 +20,27 @@ var spotifyService = sessionBus.getService('org.mpris.MediaPlayer2.spotify').get
         var title = content[1][0][8][1][1][0];
         var artist = content[1][0][4][1][1][0][0];
         var album = content[1][0][3][1][1][0];
-        console.log(title, artist, album);
+        var song = {
+        	title: title,
+        	artist: artist,
+        	album: album
+        }
+
+        io.emit('song_changed', song);
     });
 
     notifications.addListener('PropertiesChanged', function (entry, content) {
         var title = content[0][1][1][0][8][1][1][0];
         var artist = content[0][1][1][0][4][1][1][0][0];
         var album = content[0][1][1][0][3][1][1][0];
-        console.log(title, artist, album);
+
+        var song = {
+        	title: title,
+        	artist: artist,
+        	album: album
+        }
+
+        io.emit('song_changed', song);
     });
 
 });
