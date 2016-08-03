@@ -1,62 +1,65 @@
-var ChartLyrics = (function () {
-	var url = 'http://api.chartlyrics.com/apiv1.asmx/'; 
+var ChartLyrics = (function() {
+  'use strict';
 
-	return {
-		searchLyric: function (artist, song) {
-			var deferred = $.Deferred();
+  var url = 'http://api.chartlyrics.com/apiv1.asmx/';
 
-			$.ajax({
-				url: url + 'SearchLyric',
-				type: 'get',
-				dataType: 'xml',
-				data: {artist: artist, song: song}
-			}).done(function (data) {
-				var results = [], $songs = $(data).find('SearchLyricResult');
+  return {
+    searchLyric: function(artist, song) {
+      var deferred = new $.Deferred();
 
-				$songs.each(function () {
-					results.push({
-						lyricCheckSum: $(this).find('LyricChecksum').text(),
-						lyricId: $(this).find('LyricId').text() 
-					});
-				});
+      $.ajax({
+        url: url + 'SearchLyric',
+        type: 'get',
+        dataType: 'xml',
+        data: {artist: artist, song: song}
+      }).done(function(data) {
+        var results = [];
+        var $songs = $(data).find('SearchLyricResult');
 
-				deferred.resolve(results);
-			});
+        $songs.each(function() {
+          results.push({
+            lyricCheckSum: $(this).find('LyricChecksum').text(),
+            lyricId: $(this).find('LyricId').text()
+          });
+        });
 
-			return deferred.promise();
-		},
+        deferred.resolve(results);
+      });
 
-		getLyric: function (lyricId, lyricCheckSum) {
-			var deferred = $.Deferred();
+      return deferred.promise();
+    },
 
-			$.ajax({
-				url: url + 'GetLyric',
-				type: 'GET',
-				dataType: 'xml',
-				data: {lyricId: lyricId, lyricCheckSum: lyricCheckSum},
-			}).done(function (data) {
-				var lyric = '';
-				lyric = $(data).find('Lyric').text();
-				deferred.resolve(lyric);
-			});
+    getLyric: function(lyricId, lyricCheckSum) {
+      var deferred = new $.Deferred();
 
-			return deferred;
-		},
+      $.ajax({
+        url: url + 'GetLyric',
+        type: 'GET',
+        dataType: 'xml',
+        data: {lyricId: lyricId, lyricCheckSum: lyricCheckSum}
+      }).done(function(data) {
+        var lyric = '';
+        lyric = $(data).find('Lyric').text();
+        deferred.resolve(lyric);
+      });
 
-		findLyric: function (artist, song) {
-			var deferred = $.Deferred();
-			var self = this;
+      return deferred;
+    },
 
-			this.searchLyric(artist, song).then(function (results) {
-				var search = results[0];
-				return self.getLyric(search.lyricId, search.lyricCheckSum);
-			})
+    findLyric: function(artist, song) {
+      var deferred = new $.Deferred();
+      var self = this;
 
-			.done(function (lyric) {
-				deferred.resolve(lyric);
-			});
+      this.searchLyric(artist, song).then(function(results) {
+        var search = results[0];
+        return self.getLyric(search.lyricId, search.lyricCheckSum);
+      })
 
-			return deferred.promise();
-		}
-	};
+      .done(function(lyric) {
+        deferred.resolve(lyric);
+      });
+
+      return deferred.promise();
+    }
+  };
 })();
