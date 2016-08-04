@@ -38,27 +38,20 @@ function initDbus() {
         console.log(err);
       }
 
-      var title = content[1][0][8][1][1][0];
-      var artist = content[1][0][4][1][1][0][0];
-      var album = content[1][0][3][1][1][0];
       var song = {
-        title: title,
-        artist: artist,
-        album: album
+        title: content[1][0][8][1][1][0],
+        artist: content[1][0][4][1][1][0][0],
+        album: content[1][0][3][1][1][0]
       };
 
       io.emit('song_changed', song);
     });
 
     notifications.addListener('PropertiesChanged', function(entry, content) {
-      var title = content[0][1][1][0][8][1][1][0];
-      var artist = content[0][1][1][0][4][1][1][0][0];
-      var album = content[0][1][1][0][3][1][1][0];
-
       var song = {
-        title: title,
-        artist: artist,
-        album: album
+        title: content[0][1][1][0][8][1][1][0],
+        artist: content[0][1][1][0][4][1][1][0][0],
+        album: content[0][1][1][0][3][1][1][0]
       };
       io.emit('song_changed', song);
     });

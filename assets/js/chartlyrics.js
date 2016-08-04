@@ -23,7 +23,11 @@ var ChartLyrics = (function() {
           });
         });
 
-        deferred.resolve(results);
+        if (results[0].lyricCheckSum === "" || results[0].lyricId === "") {
+          deferred.reject('Lyric not found');
+        } else {
+          deferred.resolve(results);
+        }
       });
 
       return deferred.promise();
@@ -43,14 +47,20 @@ var ChartLyrics = (function() {
         deferred.resolve(lyric);
       });
 
-      return deferred;
+      return deferred.promise();
     },
 
     findLyric: function(artist, song) {
       var deferred = new $.Deferred();
       var self = this;
 
-      this.searchLyric(artist, song).then(function(results) {
+      this.searchLyric(artist, song)
+
+      .fail(function(error) {
+        deferred.reject(error);
+      })
+
+      .then(function(results) {
         var search = results[0];
         return self.getLyric(search.lyricId, search.lyricCheckSum);
       })
