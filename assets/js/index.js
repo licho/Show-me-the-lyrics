@@ -11,9 +11,11 @@ $(function() {
 
   var showError = function(error) {
     $('#lyrics').html(error);
+    $('#artist').text('');
+    $('#album').text('');
   };
 
-  var showSongInformation = function (artist, album) {
+  var showSongInformation = function(artist, album) {
     $('#artist').text(artist);
     $('#album').text(album);
   };
