@@ -13,10 +13,16 @@ $(function() {
     $('#lyrics').html(error);
   };
 
+  var showSongInformation = function (artist, album) {
+    $('#artist').text(artist);
+    $('#album').text(album);
+  };
+
   socket.on('song_changed', function(data) {
     ChartLyrics.findLyric(data.artist, data.title)
 
     .done(function(lyric) {
+      showSongInformation(data.artist, data.title);
       updateLyrics(lyric);
     })
 

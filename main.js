@@ -48,7 +48,7 @@ function initDbus() {
     });
 
     notifications.addListener('PropertiesChanged', function(entry, content) {
-      // Check is song was paused or played again
+      // Check if song was paused or played again
       if (content[0][0] === 'PlaybackStatus') {
         return false;
       }
