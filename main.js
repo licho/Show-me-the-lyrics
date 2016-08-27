@@ -7,7 +7,6 @@ const {app, BrowserWindow} = electron;
 app.on('ready', () => {
   const {height} = electron.screen.getPrimaryDisplay().workAreaSize;
   const {width} = electron.screen.getPrimaryDisplay().size;
-  console.log(electron.screen.getPrimaryDisplay());
 
   const browserWidth = 400;
 
