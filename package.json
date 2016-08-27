@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "electron main.js"
+    "start": "electron main.js --enable-transparent-visuals --disable-gpu"
   },
   "author": "Luis Vallejo",
   "license": "GNU GPLv3",

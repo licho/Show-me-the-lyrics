@@ -15,7 +15,8 @@ app.on('ready', () => {
     y: 0,
     width: browserWidth,
     height: height,
-    alwaysOnTop: true
+    alwaysOnTop: true,
+    transparent: true
   });
   win.loadURL(`file://${__dirname}/index.html`);
   // win.webContents.openDevTools();
