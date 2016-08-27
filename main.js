@@ -5,9 +5,21 @@ const electron = require('electron');
 const {app, BrowserWindow} = electron;
 
 app.on('ready', () => {
-  let win = new BrowserWindow({width: 800, height: 600});
+  const {height} = electron.screen.getPrimaryDisplay().workAreaSize;
+  const {width} = electron.screen.getPrimaryDisplay().size;
+  console.log(electron.screen.getPrimaryDisplay());
+
+  const browserWidth = 400;
+
+  let win = new BrowserWindow({
+    x: width - browserWidth,
+    y: 0,
+    width: browserWidth,
+    height: height,
+    alwaysOnTop: true
+  });
   win.loadURL(`file://${__dirname}/index.html`);
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 });
 
 // Server stuff
